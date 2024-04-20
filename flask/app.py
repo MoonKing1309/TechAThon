@@ -1,12 +1,15 @@
 from flask import Flask,request, render_template
 import pickle,joblib
 import numpy as np
-
 app = Flask(__name__, template_folder='templates')
+import os
+path=os.chdir(str('/Users/moon/Documents/Programming/Python/Machine_Learning/TechAThon/flask'))
 
-model=pickle.load(open('./model/LogReg.pkl','rb'))
-vectoriser = pickle.load(open('./model/vectoriser.pkl','rb'))
-preprocess = joblib.load('./model/preprocess')
+model=pickle.load(open('./LogReg.pickle','rb'))
+vectoriser = pickle.load(open('./vectoriser.pickle','rb'))
+import dill 
+preprocess = dill.load(open('./PreProcess.dill','rb'))
+
 
 @app.route('/')
 def hello_world():
