@@ -1,91 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social Media Sentiment Analysis</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>SentimentAnalysis</title>
+    <style>
+      .container
+      {
+        text-align: center;
+        background-color: aliceblue;
+        min-height: 100vh;
+        width: 100vw;
+        position: absolute;
 
-    header, footer {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
+      }
 
-    main {
-      padding: 20px;
-    }
+      nav{
+        display: flex;
+        background-color: black;
+        color: rgb(0,149,255);
+        padding-left: 10px;
+        height: 60px;
 
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
+      }
+      body{
+        padding: 0px;
+        margin: 0px;
+      }
 
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
+      table
+      {margin: auto auto;}
 
-    button:hover {
-      background-color: #0056b3;
-    }
+      td,tr
+      {
+        padding: 10px;
+      }
 
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Social Media Sentiment Analysis</h1>
-  </header>
-  <main>
-    <section id="input-section">
-      <h2>Enter Text for Analysis:</h2>
-      <textarea id="input-text" rows="4" cols="50"></textarea>
-      <button id="analyze-btn">Analyze Sentiment</button>
-    </section>
-    <section id="result-section" style="display: none;">
-      <h2>Analysis Result:</h2>
-      <p id="sentiment-result"></p>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2024 Social Media Sentiment Analysis</p>
-  </footer>
+      .btn
+      {
+          padding: 10px 20px 10px 20px;
+          background-color: rgb(0,149,255);
+          border: none;
+          border-radius: 50px;
+          color:white;
+          font-weight: 700;
+          cursor: pointer;
+          box-shadow: 0px 3px 10px black;
+          text-decoration: none;
+      }
 
-  <script>
-    document.getElementById('analyze-btn').addEventListener('click', function() {
-      var text = document.getElementById('input-text').value;
-      var resultElement = document.getElementById('sentiment-result');
-      
-      // Perform sentiment analysis here (you would need to implement this functionality)
-      var sentiment = analyzeSentiment(text);
+      .btn:active
+      {
+          box-shadow: 0px 0px 3px black;
+          transform: scaleY(7px);
+      }
 
-      // Display the sentiment result
-      resultElement.textContent = 'Sentiment: ' + sentiment;
-      document.getElementById('result-section').style.display = 'block';
-    });
+      label{
+        color: rgb(0,149,255);
+        font-weight: 900;
+      }
 
-    // Dummy function for sentiment analysis (replace with actual implementation)
-    function analyzeSentiment(text) {
-      // Dummy implementation: just randomly assign sentiment
-      var sentiments = ['Positive', 'Neutral', 'Negative'];
-      var randomIndex = Math.floor(Math.random() * sentiments.length);
-      return sentiments[randomIndex];
-    }
-  </script>
-</body>
-</html>
+      #label
+      {
+        text-align: start;
+      }
+      select{
+        width: 100%;
+      }
+      nav li 
+      {
+        display: inline;
+        padding-right: 20px;
+      }
+
+      nav a
+      {
+        text-decoration: none;
+        color: rgb(0,149,255);
+      }
+
+      #predictionContainer
+      {
+        margin-left: auto auto;
+        display: flex; 
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        margin: 20px;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+    <div class="section no-pad-bot" id="index-banner">
+      <nav>
+        <h1>
+          Sentiment Analysis
+        </h1>
+        <h1 style="margin-left: auto; margin-right: 10px;color: rgb(0,149,255);">
+            <!-- <ul style="list-style: none;display: inline;margin: 0px;padding: 0px;">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/LR">LinearRegression</a>
+                </li>
+                <li>  
+                    <a href="/SVM">SVM</a>
+                </li>
+            </ul> -->
+        </h1>
+      </nav>
+      <div class="container">
+            <h2>
+              Analyse whether the input is positive or negative.
+            </h2>
+
+            <form action='/predictLR' method="post" >
+              <table>
+                  <tr>
+                      <td id="label">
+                        <label for="text">Enter Text :</label>
+                      </td>
+                      <td>
+                        <input placeholder="I am happy..." name="text" type="string">
+                      </td>
+                  </tr>
+              </table>
+              <button type="submit" class="btn" >Analyse</button>
+            </form>
+            <div id="predictionContainer">
+              <h3>{{pred}}</h3>
+            </div>
+          </div>
+        </div>
+  </body>
+  </html>
