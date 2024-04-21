@@ -1,145 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-    <title>SentimentAnalysis</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
     <style>
-      .container
-      {
-        text-align: center;
-        background-color: aliceblue;
-        min-height: 100vh;
-        width: 100vw;
-        position: absolute;
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
 
-      }
+        .container {
+            text-align: center;
+            background-color: #1a1a1a;
+            min-height: 100vh;
+            width: 80%;
+            margin: 0 auto;
+            padding: 50px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+            border-radius: 20px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
+        }
 
-      nav{
-        display: flex;
-        background-color: black;
-        color: rgb(0,149,255);
-        padding-left: 10px;
-        height: 60px;
+        h2 {
+            font-size: 26px;
+            margin-bottom: 30px;
+        }
 
-      }
-      body{
-        padding: 0px;
-        margin: 0px;
-      }
+        table {
+            margin: 0 auto;
+            margin-top: 30px;
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
 
-      table
-      {margin: auto auto;}
+        td, tr {
+            padding: 10px;
+            vertical-align: middle;
+        }
 
-      td,tr
-      {
-        padding: 10px;
-      }
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #292929;
+            border: 2px solid #1da1f2;
+            padding: 5px;
+        }
 
-      .btn
-      {
-          padding: 10px 20px 10px 20px;
-          background-color: rgb(0,149,255);
-          border: none;
-          border-radius: 50px;
-          color:white;
-          font-weight: 700;
-          cursor: pointer;
-          box-shadow: 0px 3px 10px black;
-          text-decoration: none;
-      }
+        input[type="string"] {
+            border: none;
+            background: none;
+            width: 100%;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 10px;
+            outline: none;
+        }
 
-      .btn:active
-      {
-          box-shadow: 0px 0px 3px black;
-          transform: scaleY(7px);
-      }
+        .btn {
+            padding: 10px 20px;
+            background-color: #1da1f2;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-      label{
-        color: rgb(0,149,255);
-        font-weight: 900;
-      }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+        }
 
-      #label
-      {
-        text-align: start;
-      }
-      select{
-        width: 100%;
-      }
-      nav li 
-      {
-        display: inline;
-        padding-right: 20px;
-      }
+        #predictionContainer {
+            display: none;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
 
-      nav a
-      {
-        text-decoration: none;
-        color: rgb(0,149,255);
-      }
+        .fadeIn {
+            animation: fadeInAnimation 0.5s ease-in-out forwards;
+        }
 
-      #predictionContainer
-      {
-        margin-left: auto auto;
-        /* display: flex;  */
-        justify-content: center;
-        align-content: center;
-        text-align: center;
-        flex-wrap: wrap;
-        margin: 20px;
-      }
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
+        @media (min-width: 768px) {
+            .container {
+                width: 60%;
+                padding: 50px 80px;
+            }
 
+            h2 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            table {
+                margin-top: 40px;
+            }
+
+            td, tr {
+                padding: 15px;
+            }
+
+            .input-container {
+                padding: 10px;
+            }
+
+            input[type="string"] {
+                font-size: 18px;
+                padding: 12px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+
+            #predictionContainer {
+                margin-top: 40px;
+            }
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div class="section no-pad-bot" id="index-banner">
-      <nav>
-        <h1>
-          Sentiment Analysis
-        </h1>
-        <h1 style="margin-left: auto; margin-right: 10px;color: rgb(0,149,255);">
-            <!-- <ul style="list-style: none;display: inline;margin: 0px;padding: 0px;">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/LR">LinearRegression</a>
-                </li>
-                <li>  
-                    <a href="/SVM">SVM</a>
-                </li>
-            </ul> -->
-        </h1>
-      </nav>
-      <div class="container">
-            <h2>
-              Analyse whether the input is positive or negative.
-            </h2>
+<body>
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <h2>Analyze whether the input is positive or negative.</h2>
 
-            <form action='/predictLR' method="post" >
-              <table>
-                  <tr>
-                      <td id="label">
-                        <label for="text">Enter Text :</label>
-                      </td>
-                      <td>
-                        <input placeholder="I am happy..." name="text" type="string">
-                      </td>
-                  </tr>
-              </table>
-              <button type="submit" class="btn">Analyse</button>
-            </form>
-            <div id="predictionContainer">  
-              <p>
-                <h1>Input text is <em style="color: rgb(0,149,255);">{{word}}</em></h1>
-              </p>
-              <h3> The Sentiment of the given text is  <em style="color: rgb(0,149,255);">{{pred}}</em></h3>
-           
-            </div>
-          </div>
+        <form action='/predictLR' method="post" id="analysisForm">
+            <table>
+                <tr>
+                    <td>
+                        <div class="input-container">
+                            <input placeholder="I am happy..." name="text" type="string">
+                        </div>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn">Analyse</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div id="predictionContainer">
+            <p>
+                <h1>Input text is <em style="color: #1da1f2;">{{word}}</em></h1>
+            </p>
+            <h3>The Sentiment of the given text is <em style="color: #1da1f2;">{{pred}}</em></h3>
         </div>
-  </body>
-  </html>
+    </div>
+</div>
+
+<script>
+    document.getElementById('analysisForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Show the prediction container with a fade-in effect
+        var predictionContainer = document.getElementById('predictionContainer');
+        predictionContainer.style.display = 'block';
+        setTimeout(function () {
+            predictionContainer.classList.add('fadeIn');
+        }, 10); // Delay the animation slightly for better visual effect
+    });
+</script>
+
+</body>
+</html>
