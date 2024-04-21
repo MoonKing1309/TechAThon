@@ -13,7 +13,7 @@ preprocess = dill.load(open('./PreProcess.dill','rb'))
 
 @app.route('/')
 def hello_world():
-    return render_template("index.html")
+    return render_template("index.html",word='{Enter text}',pred='{Enter text}')
 
 
 @app.route('/predictLR',methods=['POST','GET'])
@@ -24,14 +24,21 @@ def predict():
             i = value
     text =[]
     text.append(i)
+    print(text)
     textdata = vectoriser.transform(preprocess(text))
-    sentiment = model.predict(textdata)
-
-    if sentiment[0]==0:
-        return render_template('index.html',pred='The Sentiment of the given text is Negative')
+    sentiment = model.predict_proba(textdata)
+    pp = sentiment[0][1]
+    print(pp)
+    if pp >0.90:
+        return render_template('index.html',word=i,pred='Super Positive')
+    elif pp > 0.60:
+        return render_template('index.html',word=i,pred='Positive')
+    elif pp >0.40:
+        return render_template('index.html',word=i,pred='Neutral')
+    elif pp >0.10:
+        return render_template('index.html',word=i,pred='Negative')
     else:
-        return render_template('index.html',pred='The Sentiment of the given text is Positive')
-
+        return render_template('index.html',word=i,pred='Super Negative ')
 
 
 if __name__ == '__main__':

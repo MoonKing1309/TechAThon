@@ -82,7 +82,7 @@
       #predictionContainer
       {
         margin-left: auto auto;
-        display: flex; 
+        /* display: flex;  */
         justify-content: center;
         align-content: center;
         text-align: center;
@@ -130,10 +130,14 @@
                       </td>
                   </tr>
               </table>
-              <button type="submit" class="btn" >Analyse</button>
+              <button type="submit" class="btn">Analyse</button>
             </form>
-            <div id="predictionContainer">
-              <h3>{{pred}}</h3>
+            <div id="predictionContainer">  
+              <p>
+                <h1>Input text is <em style="color: rgb(0,149,255);">{{word}}</em></h1>
+              </p>
+              <h3> The Sentiment of the given text is  <em style="color: rgb(0,149,255);">{{pred}}</em></h3>
+           
             </div>
           </div>
         </div>
