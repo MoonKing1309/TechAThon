@@ -3,7 +3,7 @@ import pickle,joblib
 import numpy as np
 app = Flask(__name__, template_folder='templates')
 import os
-path=os.chdir(str('/Users/moon/Documents/Programming/Python/Machine_Learning/TechAThon/flask'))
+path=os.chdir(str("D:/MoonDrive/TechAThon/flask"))
 
 model=pickle.load(open('./LogReg.pickle','rb'))
 vectoriser = pickle.load(open('./vectoriser.pickle','rb'))
